@@ -1,0 +1,3 @@
+Defaults	env_keep += "REGISTRY"	
+#gafis	ALL=(ALL)	NOPASSWD:/opt/apps/nirvana/current/bin/weave,/usr/bin/docker,/opt/apps/nirvana/releases/20150618181103/bin/weave
+roar	ALL=(ALL)	NOPASSWD:/usr/bin/docker,/sbin/poweroff,/usr/sbin/ntpdate,/usr/bin/apt
