@@ -1,9 +1,16 @@
 #!/bin/bash
 
 set -e
+#set host
+mv hosts /etc/hosts
+echo $MY_HOSTNAME > /etc/hostname 
+hostname -F /etc/hostname
 
 #config user
-userdel roar  > /dev/null 2>1&
+userdel  roar  2>1&
+sleep 1
+groupdel roar  2>1&
+sleep 1
 useradd -p $(openssl passwd -1 5iroar) -u 3001 -s /bin/bash -m roar
 
 #usermod -aG docker roar
@@ -26,9 +33,14 @@ echo "UseDNS no" >> /etc/ssh/sshd_config
 service ssh restart
 
 #config apt
+export DEBIAN_FRONTEND=noninteractive
 mv sources.list /etc/apt/
 dpkg --remove-architecture i386
+apt-get -y --force-yes purge ubuntu-desktop ubuntu-standard  libice6 unity* language-pack* build-essential firefox*
+apt-get -y autoremove
 apt-get update
+apt-get -q -yy --force-yes upgrade
+apt-get -yy -q --force-yes install git-core
 
 #cofig locale
 echo 'zh_CN.UTF-8 UTF-8' > /etc/locale.gen
@@ -47,9 +59,6 @@ echo 'net.ipv6.conf.default.disable_ipv6=1' >> /etc/sysctl.d/60-disable-ipv6.con
 echo 'net.ipv6.conf.lo.disable_ipv6=1' >> /etc/sysctl.d/60-disable-ipv6.conf
 sysctl -p
 
-#setup docker
-apt-get update
-apt-get -y --force-yes install git-core
 
 #config docker registry
 
@@ -62,4 +71,6 @@ apt-get -y --force-yes install git-core
 mv roar_sudo /etc/sudoers.d/
 chown root:root /etc/sudoers.d/roar_sudo
 chmod 440 /etc/sudoers.d/roar_sudo
+
+reboot
 

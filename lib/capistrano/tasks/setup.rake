@@ -3,7 +3,8 @@
     task :ubuntu do
       _stage = fetch(:stage)
       docker_registry = fetch(:docker_registry)
-      on roles(:all),in: :sequence do |host|
+      host_mapping = fetch(:host_mapping)
+      on roles(:first),in: :sequence do |host|
         #setup ssh
         upload! "keys/id_rsa","/tmp/id_rsa"
         upload! "keys/id_rsa.pub","/tmp/id_rsa.pub"
@@ -13,11 +14,14 @@
 
 	#set apt
         upload! "config/deploy/#{_stage}/sources.list","sources.list"
+        upload! "config/deploy/#{_stage}/hosts","hosts"
 
 	#init 
         upload! "scripts/init.sh","init.sh"
         upload! "scripts/roar_sudo","roar_sudo"
-	sudo "DOCKER_REGISTRY=#{docker_registry} sh init.sh"
+	hostname = host_mapping[host]
+	#execute! "LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 SUDO_ASKPASS=/bin/echo sudo","MY_HOSTNAME=#{hostname}",:sh,"init.sh"
+	execute! "LC_ALL=en_US",'sudo',"MY_HOSTNAME=#{hostname}",:sh,"init.sh"
 	execute "rm init.sh"
 
       end

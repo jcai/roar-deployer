@@ -25,8 +25,23 @@
 def ip_range (ips)
   return ips.map{|x| '192.168.1.'+x.to_s()}.to_a()
 end
+class SSHKit::Sudo::InteractionHandler
+  use_same_password!
+#  password_prompt_regexp /[Pp]assword.*:/
+#  password_prompt_regexp /.*密码：/
+end
 
-role :new ,ip_range(Array(100..106))
+set :host_mapping,{
+	'192.168.1.100'=>'s1',
+	'192.168.1.101'=>'s2',
+	'192.168.1.102'=>'s3',
+	'192.168.1.103'=>'s4',
+	'192.168.1.104'=>'s5',
+	'192.168.1.105'=>'s6',
+	'192.168.1.106'=>'s7',
+	}
+
+role :first ,ip_range(Array(100..106))
 
 
 
