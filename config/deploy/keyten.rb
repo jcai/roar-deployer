@@ -43,6 +43,7 @@ set :host_mapping,{
 
 role :first ,ip_range(Array(100..106))
 
+set :ntp_server,'ubuntu.pool.ntp.org'
 
 
 # Configuration
