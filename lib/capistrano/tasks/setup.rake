@@ -32,7 +32,8 @@
       ntp = fetch(:ntp_server)
       ntpdate_cron_file = "/etc/cron.daily/ntpdate"
       on roles(:all),in: :sequence do |host|
-        sudo "sh -c  \"echo 'ntpdate #{ntp}' > #{ntpdate_cron_file} && chmod +x #{ntpdate_cron_file} && ntpdate #{ntp} \" "
+	sudo "apt-get -y install ntpdate"
+        sudo "sh -c  \"echo 'ntpdate #{ntp}' > #{ntpdate_cron_file} && chmod +x #{ntpdate_cron_file} && ntpdate #{ntp} 2>1& \" "
       end
     end
 
