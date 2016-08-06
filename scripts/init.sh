@@ -2,11 +2,13 @@
 
 set -e
 #set host
+echo '=========> config hostname '
 mv hosts /etc/hosts
 echo $MY_HOSTNAME > /etc/hostname 
 hostname -F /etc/hostname
 
 #config user
+echo '=========> recreate user roar'
 userdel  roar  2>1&
 sleep 1
 groupdel roar  2>1&
@@ -15,35 +17,41 @@ useradd -p $(openssl passwd -1 5iroar) -u 3001 -s /bin/bash -m roar
 
 #usermod -aG docker roar
 #set ssh 
+echo '=========> add ssh configuration for user roar'
 mkdir -p /home/roar/.ssh
 #setup ssh
 SSH_DIR=/home/roar/.ssh
 mv /tmp/id_rsa $SSH_DIR/id_rsa
 mv /tmp/id_rsa.pub $SSH_DIR/id_rsa.pub
 cat $SSH_DIR/id_rsa.pub > $SSH_DIR/authorized_keys
-chown roar:roar /home/roar
 chmod 0771 $SSH_DIR
 chmod 0600 $SSH_DIR/id_rsa
+chown -R roar:roar /home/roar
 
 #create application directory
+echo '=========> create apps directory'
 mkdir -p /opt/apps
 chown -R roar:roar /opt/apps
-sed -i s'/^UseDNS/#UseDNS/g' /etc/ssh/sshd_config
 
+echo '=========> config openssh server'
+sed -i s'/^UseDNS/#UseDNS/g' /etc/ssh/sshd_config
 echo "UseDNS no" >> /etc/ssh/sshd_config
 service ssh reload
 
 #config apt
+echo '=========> upgrade system'
 export DEBIAN_FRONTEND=noninteractive
 mv sources.list /etc/apt/
 dpkg --remove-architecture i386
 apt-get -y --force-yes purge ubuntu-desktop ubuntu-standard  libice6 unity* language-pack* build-essential firefox*
 apt-get -y autoremove
 apt-get update
-apt-get -q -yy --force-yes upgrade
+sync
+apt-get -q -yy upgrade
 apt-get -yy -q --force-yes install git-core
 
 #cofig locale
+echo '=========> config locale'
 echo 'zh_CN.UTF-8 UTF-8' > /etc/locale.gen
 locale-gen --purge zh_CN.UTF-8
 update-locale LANG=zh_CN.UTF-8
@@ -76,6 +84,7 @@ echo 'roar  -       nproc   32000' >> /etc/security/limits.conf
 
 
 #config sudo 
+echo '=========> set user roar sudo '
 mv roar_sudo /etc/sudoers.d/
 chown root:root /etc/sudoers.d/roar_sudo
 chmod 440 /etc/sudoers.d/roar_sudo
