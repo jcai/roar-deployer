@@ -8,9 +8,11 @@
         #setup ssh
         upload! "keys/id_rsa","/tmp/id_rsa"
         upload! "keys/id_rsa.pub","/tmp/id_rsa.pub"
-        #execute "mkdir -p ~/.ssh"
-        #execute "chmod 0600 ~/.ssh/id_rsa"
-        #execute "cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys"
+        execute "mkdir -p ~/.ssh"
+	execute 'cp /tmp/id_rsa ~/.ssh'
+	execute 'cp /tmp/id_rsa.pub ~/.ssh'
+        execute "chmod 0600 ~/.ssh/id_rsa"
+        execute "cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys"
 
 	#set apt
         upload! "config/deploy/#{_stage}/sources.list","sources.list"
