@@ -37,11 +37,11 @@ set :host_mapping,{
 	'192.168.1.102'=>'s3.roar',
 	'192.168.1.103'=>'s4.roar',
 	'192.168.1.104'=>'s5.roar',
-#	'192.168.1.105'=>'s6.roar',
+	'192.168.1.105'=>'s6.roar',
 	'192.168.1.106'=>'s7.roar',
 	}
 
-role :first ,ip_range(Array(100..104).concat(Array(106)))
+role :first ,ip_range(Array(100..106))
 
 set :ntp_server,'s1.roar'
 
