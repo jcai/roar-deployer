@@ -31,19 +31,34 @@ class SSHKit::Sudo::InteractionHandler
 #  password_prompt_regexp /.*密码：/
 end
 
-set :host_mapping,{
-	'192.168.1.100'=>'s1.roar',
-	'192.168.1.101'=>'s2.roar',
-	'192.168.1.102'=>'s3.roar',
-	'192.168.1.103'=>'s4.roar',
-	'192.168.1.104'=>'s5.roar',
-	'192.168.1.105'=>'s6.roar',
-	'192.168.1.106'=>'s7.roar',
-	}
+#only no setup os
+#set :host_mapping,{
+#	'192.168.1.100'=>'s1.roar',
+#	'192.168.1.101'=>'s2.roar',
+#	'192.168.1.102'=>'s3.roar',
+#	'192.168.1.103'=>'s4.roar',
+#	'192.168.1.104'=>'s5.roar',
+##	'192.168.1.105'=>'s6.roar',
+#	'192.168.1.106'=>'s7.roar',
+#	}
+#
+#role :first ,ip_range(Array(100..104).concat(Array(106)))
 
-role :first ,ip_range(Array(100..106))
+server 's1.roar',roles:%w(ubuntu hadoop hadoop_datanode)
+server 's2.roar',roles:%w(ubuntu hadoop hadoop_namenode hadoop_datanode)
+server 's3.roar',roles:%w(ubuntu hadoop hadoop_datanode)
+server 's4.roar',roles:%w(ubuntu hadoop hadoop_datanode)
+server 's5.roar',roles:%w(ubuntu hadoop hadoop_datanode)
+server 's7.roar',roles:%w(ubuntu hadoop hadoop_datanode)
 
 set :ntp_server,'s1.roar'
+
+class Capistrano::Configuration::Server
+  def matches?(other)
+    puts "asdf........"
+    (hostname != other.hostname) && port == other.port
+  end
+end
 
 
 # Configuration

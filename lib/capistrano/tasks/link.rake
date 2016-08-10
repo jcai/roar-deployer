@@ -1,5 +1,5 @@
-namespace :nirvana do
-  desc "link nirvana product files"
+namespace :roar do
+  desc "link roar product files"
   task :link do
     _stage = fetch(:stage)
     app_path = fetch(:deploy_to)
@@ -31,4 +31,6 @@ namespace :nirvana do
       end
     end
   end
+  #after "deploy:publishing",:link
+
 end

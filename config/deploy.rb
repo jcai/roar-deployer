@@ -33,4 +33,15 @@ set :pty, true
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
+
+
+#config default concurrent
+module SSHKit
+  class Coordinator
+    private
+      def default_options
+  {in: :groups,limit:10}
+      end
+  end
+end
