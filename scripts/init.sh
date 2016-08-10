@@ -42,10 +42,10 @@ service ssh reload
 echo '=========> upgrade system'
 export DEBIAN_FRONTEND=noninteractive
 mv sources.list /etc/apt/
+apt-get update
 dpkg --remove-architecture i386
 apt-get -y --force-yes purge ubuntu-desktop ubuntu-standard  libice6 unity* language-pack* build-essential firefox*
 apt-get -y autoremove
-apt-get update
 sync
 apt-get -q -yy upgrade
 apt-get -yy -q --force-yes install git-core

@@ -1,7 +1,10 @@
 127.0.0.1	localhost
 
 
-192.168.1.100 	ubuntu.mirror s1.roar
+192.168.1.100 	ubuntu.roar 
+192.168.1.100 	hadoop.roar
+192.168.1.100 	git.roar
+192.168.1.100 	s1.roar
 192.168.1.101 	s2.roar
 192.168.1.102 	s3.roar
 192.168.1.103 	s4.roar
