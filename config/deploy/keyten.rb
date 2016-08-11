@@ -53,12 +53,6 @@ server 's7.roar',roles:%w(ubuntu hadoop hadoop_datanode)
 
 set :ntp_server,'s1.roar'
 
-class Capistrano::Configuration::Server
-  def matches?(other)
-    puts "asdf........"
-    (hostname != other.hostname) && port == other.port
-  end
-end
 
 
 # Configuration
@@ -68,6 +62,25 @@ end
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
+
+
+set :file_server,'http://hadoop.roar'
+set :hadoop_version,'2.5.2'
+set :java_version,'1.7.0_79'
+set :java_file,'server-jre-7u79-linux-x64.tar.gz'
+
+
+# not custom
+set :bin_path,->{"#{fetch(:deploy_to)}/bin"}
+
+set :hadoop_file,->{"hadoop-#{fetch(:hadoop_version)}.tar.gz"}
+set :hadoop_download_url,->{"#{fetch(:file_server)}/#{fetch(:hadoop_file)}"}
+set :hadoop_home,->{"#{fetch(:bin_path)}/hadoop-#{fetch(:hadoop_version)}"}
+
+set :java_download_url,->{"#{fetch(:file_server)}/#{fetch(:java_file)}"}
+set :java_home,->{"#{fetch(:bin_path)}/jdk#{fetch(:java_version)}"}
+
+
 
 
 

@@ -4,24 +4,23 @@ namespace :roar do
     _stage = fetch(:stage)
     app_path = fetch(:deploy_to)
     #deploy cloud
+    hadoop_home = fetch(:hadoop_home)
     on roles(:hadoop) do |host|
       private_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hadoop/#{host}"
       public_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hadoop/default"
 
-      if test("[ -d #{shared_path}/hadoop]")
-        execute "unlink #{shared_path}/hadoop"
-      end
+      execute "rm -rf #{hadoop_home}/etc/hadoop/*site.xml"
       if test("[ -d #{private_config_dir} ]")
-        execute "ln -s #{private_config_dir}  #{shared_path}/hadoop"
+        execute "ln -s #{private_config_dir}/*  #{hadoop_home}/etc/hadoop/"
       else
-        execute "ln -s #{public_config_dir}  #{shared_path}/hadoop"
+        execute "ln -s #{public_config_dir}/*  #{hadoop_home}/etc/hadoop/"
       end
     end
     on roles(:hbase) do |host|
       private_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hbase/#{host}"
       public_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hbase/default"
 
-      if test("[ -d #{shared_path}/hbase]")
+      if test("[ -d #{shared_path}/hbase ]")
         execute "unlink #{shared_path}/hbase"
       end
       if test("[ -d #{private_config_dir} ]")
@@ -31,6 +30,5 @@ namespace :roar do
       end
     end
   end
-  #after "deploy:publishing",:link
-
+  after 'deploy:publishing','roar:link'
 end
