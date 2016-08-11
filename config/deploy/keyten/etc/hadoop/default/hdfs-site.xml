@@ -19,11 +19,11 @@
 <configuration>
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>/data/roar/namenode</value>
+    <value>file:///data/roar/namenode</value>
   </property>
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/data/roar/datanode</value>
+    <value>file:///data/roar/datanode</value>
   </property>
 
 </configuration>
