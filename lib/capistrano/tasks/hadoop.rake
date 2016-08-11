@@ -2,14 +2,11 @@ namespace :hadoop do
   desc "setup hadoop system"
   task :setup do
     _stage = fetch(:stage)
-    docker_registry = fetch(:docker_registry)
     app_path = fetch(:deploy_to)
-    host_mapping = fetch(:host_mapping)
 
     dist_dir = "#{app_path}/dist"
     bin_dir = "#{app_path}/bin"
     hadoop_file=fetch(:hadoop_file)
-    jdk_file=fetch(:java_file)
     on roles(:hadoop) do |host|
       execute "mkdir -p #{bin_dir}"
       execute "mkdir -p #{dist_dir}"

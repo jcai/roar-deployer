@@ -80,7 +80,7 @@ set :hadoop_download_url,->{"#{fetch(:file_server)}/#{fetch(:hadoop_file)}"}
 set :hadoop_home,->{"#{fetch(:bin_path)}/hadoop-#{fetch(:hadoop_version)}"}
 
 set :java_download_url,->{"#{fetch(:file_server)}/#{fetch(:java_file)}"}
-set :java_home,->{"#{fetch(:bin_path)}/jdk#{fetch(:java_version)}"}
+set :java_home,->{"/opt/java/jdk#{fetch(:java_version)}"}
 
 set :hbase_file,->{"hbase-#{fetch(:hbase_version)}-bin.tar.gz"}
 set :hbase_download_url,->{"#{fetch(:file_server)}/#{fetch(:hbase_file)}"}
