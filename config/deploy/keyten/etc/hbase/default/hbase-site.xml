@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-<property>
+  <property>
+    <name>hbase.master</name>
+    <value>s1.roar:60000</value>
+  </property>
+  <property>
     <name>hbase.rootdir</name>
     <value>hdfs://name.roar:9000/hbase</value>
   </property>

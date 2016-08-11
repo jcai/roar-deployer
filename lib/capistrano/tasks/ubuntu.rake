@@ -59,7 +59,7 @@ namespace :ubuntu do
         sudo "wget #{fetch(:java_download_url)} -O /tmp/#{jdk_file}"
         sudo "tar xfvz /tmp/#{jdk_file} -C #{bin_dir}"
         sudo "echo 'export PATH=#{java_home}/bin:$PATH' > /tmp/java.sh"
-	sudo "chmod +x /tmp/java.sh"
+        sudo "chmod +x /tmp/java.sh"
         sudo "mv /tmp/java.sh /etc/profile.d/"
       end
     end
