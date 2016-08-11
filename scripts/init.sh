@@ -8,12 +8,10 @@ echo $MY_HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
 
 #config user
-echo '=========> recreate user roar'
-userdel  roar  2>1&
-sleep 1
-groupdel roar  2>1&
-sleep 1
-useradd -p $(openssl passwd -1 5iroar) -u 3001 -s /bin/bash -m roar
+#echo '=========> recreate user roar'
+#userdel  roar  2>&1
+#groupdel roar  2>&1
+#useradd -p $(openssl passwd -1 5iroar) -u 3001 -s /bin/bash -m roar
 
 #usermod -aG docker roar
 #set ssh 
@@ -32,6 +30,8 @@ chown -R roar:roar /home/roar
 echo '=========> create apps directory'
 mkdir -p /opt/apps
 chown -R roar:roar /opt/apps
+mkdir -p /data/roar
+chown -R roar:roar /data/roar
 
 echo '=========> config openssh server'
 sed -i s'/^UseDNS/#UseDNS/g' /etc/ssh/sshd_config

@@ -1,4 +1,12 @@
 namespace :setup do
+  desc "setup roar user"
+  task :user do
+  on roles(:ubuntu),in: :sequence do |host|
+  execute! :sudo, :userdel,'roar',' ; true'
+  execute! :sudo,:groupdel,'roar','; true'
+  execute! :sudo,'useradd -p $(openssl passwd -1 5iroar) -u 3001 -s /bin/bash -m roar'
+  end
+  end
   desc "setup ubuntu system"
   task :ubuntu do
     _stage = fetch(:stage)
