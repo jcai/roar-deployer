@@ -55,10 +55,12 @@ namespace :ubuntu do
       java_home=fetch(:java_home)
       bin_dir = "#{java_home}/.."
       on roles(:all),in: :sequence do |host|
-        execute "mkdir -p #{bin_dir}"
-        execute "wget #{fetch(:java_download_url)} -O /tmp/#{jdk_file}"
-        execute "tar xfvz /tmp/#{jdk_file} -C #{bin_dir}"
-        execute "echo 'export PATH=#{java_home}/bin:$PATH' >> /etc/profile"
+        sudo "mkdir -p #{bin_dir}"
+        sudo "wget #{fetch(:java_download_url)} -O /tmp/#{jdk_file}"
+        sudo "tar xfvz /tmp/#{jdk_file} -C #{bin_dir}"
+        sudo "echo 'export PATH=#{java_home}/bin:$PATH' > /tmp/java.sh"
+	sudo "chmod +x /tmp/java.sh"
+        sudo "mv /tmp/java.sh /etc/profile.d/"
       end
     end
   end
