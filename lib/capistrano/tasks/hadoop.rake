@@ -91,7 +91,7 @@ namespace :hadoop do
       end
     end
     desc "stop yarn node manager "
-    task :stop  do
+    task :stop_node  do
       hadoop_prefix=fetch(:hadoop_home)
       java_home=fetch(:java_home)
       on roles(:hadoop_nodemanager),in: :sequence do |host|
