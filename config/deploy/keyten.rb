@@ -44,12 +44,12 @@ end
 #
 #role :first ,ip_range(Array(100..104).concat(Array(106)))
 
-server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager)
-server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
-server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
-server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
-server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
-server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
+server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager hbase_master)
+server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
+server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
+server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
+server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_region)
+server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_region)
 
 set :ntp_server,'s1.roar'
 

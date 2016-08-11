@@ -16,17 +16,16 @@ namespace :roar do
         execute "ln -s #{public_config_dir}/*  #{hadoop_home}/etc/hadoop/"
       end
     end
+    hbase_home = fetch(:hbase_home)
     on roles(:hbase) do |host|
       private_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hbase/#{host}"
       public_config_dir="#{release_path}/config/deploy/#{_stage}/etc/hbase/default"
 
-      if test("[ -d #{shared_path}/hbase ]")
-        execute "unlink #{shared_path}/hbase"
-      end
+      execute "rm -rf #{hbase_home}/conf/*site.xml"
       if test("[ -d #{private_config_dir} ]")
-        execute "ln -s #{private_config_dir}  #{shared_path}/hbase"
+        execute "ln -s #{private_config_dir}/*  #{hbase_home}/conf/"
       else
-        execute "ln -s #{public_config_dir}  #{shared_path}/hbase"
+        execute "ln -s #{public_config_dir}/*  #{hbase_home}/conf/"
       end
     end
   end
