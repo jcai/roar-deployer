@@ -19,8 +19,8 @@ namespace :hadoop do
       execute "cd #{dist_dir} && tar xfvz #{jdk_file} -C #{bin_dir}"
     end
   end
-  namespace :nameserver do
-    desc "format nameserver"
+  namespace :name do
+    desc "format name server"
     task :format do
       hadoop_prefix=fetch(:hadoop_home)
       java_home=fetch(:java_home)
@@ -30,7 +30,7 @@ namespace :hadoop do
         execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/bin/hdfs namenode -format roar"
       end
     end
-    desc "start nameserver"
+    desc "start name server"
     task :start do
       hadoop_prefix=fetch(:hadoop_home)
       java_home=fetch(:java_home)
@@ -38,12 +38,30 @@ namespace :hadoop do
         execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs start namenode"
       end
     end
-    desc "stop nameserver"
+    desc "stop name server"
     task :stop  do
       hadoop_prefix=fetch(:hadoop_home)
       java_home=fetch(:java_home)
       on roles(:hadoop_namenode),in: :sequence do |host|
         execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs stop namenode"
+      end
+    end
+  end
+  namespace :data do
+    desc "start data server "
+    task :start do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_datanode),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs start datanode"
+      end
+    end
+    desc "stop data server"
+    task :stop  do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_datanode),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs stop datanode"
       end
     end
   end
