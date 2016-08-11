@@ -65,4 +65,38 @@ namespace :hadoop do
       end
     end
   end
+  namespace :yarn do
+    desc "start yarn resource manager"
+    task :start_manager do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_resourcemanager),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/yarn-daemon.sh start resourcemanager"
+      end
+    end
+    desc "stop yarn resource manager "
+    task :stop_manager  do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_resourcemanager),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/yarn-daemon.sh stop resourcemanager"
+      end
+    end
+    desc "start yarn node manager"
+    task :start_node do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_nodemanager),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/yarn-daemon.sh start nodemanager"
+      end
+    end
+    desc "stop yarn node manager "
+    task :stop  do
+      hadoop_prefix=fetch(:hadoop_home)
+      java_home=fetch(:java_home)
+      on roles(:hadoop_nodemanager),in: :sequence do |host|
+        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/yarn-daemon.sh stop nodemanager"
+      end
+    end
+  end
 end
