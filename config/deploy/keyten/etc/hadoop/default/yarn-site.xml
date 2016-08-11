@@ -23,7 +23,7 @@
 -->
 <property>
   <name>yarn.resourcemanager.hostname</name>
-  <value>s1.roar</value>
+  <value>yarn.roar</value>
 </property>
 
 </configuration>

@@ -3,7 +3,7 @@
 <configuration>
   <property>
     <name>hbase.master</name>
-    <value>s1.roar:60000</value>
+    <value>hbase.roar:60000</value>
   </property>
   <property>
     <name>hbase.rootdir</name>
@@ -15,7 +15,7 @@
   </property>
   <property>
     <name>hbase.zookeeper.quorum</name>
-    <value>s2.roar,s3.roar,s4.roar</value>
+    <value>zk1.roar,zk2.roar,zk3.roar</value>
   </property>
   <property>
     <name>hbase.zookeeper.property.dataDir</name>
