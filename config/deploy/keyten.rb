@@ -44,12 +44,12 @@ end
 #
 #role :first ,ip_range(Array(100..104).concat(Array(106)))
 
-server 's1.roar',roles:%w(ubuntu hadoop hadoop_namenode hadoop_datanode)
-server 's2.roar',roles:%w(ubuntu hadoop hadoop_datanode)
-server 's3.roar',roles:%w(ubuntu hadoop hadoop_datanode)
-server 's4.roar',roles:%w(ubuntu hadoop hadoop_datanode)
-server 's5.roar',roles:%w(ubuntu hadoop hadoop_datanode)
-server 's7.roar',roles:%w(ubuntu hadoop hadoop_datanode)
+server 's1.roar',roles:%w(ubuntu hadoop hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager)
+server 's2.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
+server 's3.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
+server 's4.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
+server 's5.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
+server 's7.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
 
 set :ntp_server,'s1.roar'
 

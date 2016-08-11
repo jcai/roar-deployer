@@ -15,5 +15,9 @@
 <configuration>
 
 <!-- Site specific YARN configuration properties -->
+<property>
+  <name>yarn.resourcemanager.address</name>
+  <value>s1.roar:8033</value>
+</property>
 
 </configuration>
