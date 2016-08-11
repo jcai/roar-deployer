@@ -36,6 +36,18 @@ namespace :hbase do
       execute "wget #{fetch(:file_server)}/#{hadoop_client_file} -O #{hbase_home}/lib/#{hadoop_client_file}"
     end
   end
+  desc "start all hbase component "
+  task :start do
+    invoke 'hbase:zk:start'
+    invoke 'hbase:master:start'
+    invoke 'hbase:region:start'
+  end
+  desc "stop all hbase component "
+  task :stop do
+    invoke 'hbase:region:stop'
+    invoke 'hbase:master:stop'
+    invoke 'hbase:zk:stop'
+  end
   namespace :zk do
     desc "start zookeeper server"
     task :start do
