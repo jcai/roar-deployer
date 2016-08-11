@@ -24,5 +24,6 @@
 <property>
   <name>yarn.resourcemanager.hostname</name>
   <value>s1.roar</value>
+</property>
 
 </configuration>
