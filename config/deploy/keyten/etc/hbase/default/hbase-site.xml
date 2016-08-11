@@ -15,7 +15,7 @@
   </property>
   <property>
     <name>hbase.zookeeper.quorum</name>
-    <value>zk1.roar,zk2.roar,zk3.roar</value>
+    <value>s2.roar,s3.roar,s4.roar</value>
   </property>
   <property>
     <name>hbase.zookeeper.property.dataDir</name>
