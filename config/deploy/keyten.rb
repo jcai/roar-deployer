@@ -44,12 +44,12 @@ end
 #
 #role :first ,ip_range(Array(100..104).concat(Array(106)))
 
-server 's1.roar',roles:%w(ubuntu hadoop hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager)
-server 's2.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
-server 's3.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
-server 's4.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
-server 's5.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
-server 's7.roar',roles:%w(ubuntu hadoop hadoop_datanode hadoop_nodemanager)
+server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager)
+server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
+server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
+server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
+server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
+server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager)
 
 set :ntp_server,'s1.roar'
 
@@ -69,6 +69,8 @@ set :hadoop_version,'2.5.2'
 set :java_version,'1.7.0_79'
 set :java_file,'server-jre-7u79-linux-x64.tar.gz'
 
+set :hbase_version,'0.98.20-hadoop2'
+
 
 # not custom
 set :bin_path,->{"#{fetch(:deploy_to)}/bin"}
@@ -79,6 +81,11 @@ set :hadoop_home,->{"#{fetch(:bin_path)}/hadoop-#{fetch(:hadoop_version)}"}
 
 set :java_download_url,->{"#{fetch(:file_server)}/#{fetch(:java_file)}"}
 set :java_home,->{"#{fetch(:bin_path)}/jdk#{fetch(:java_version)}"}
+
+set :hbase_file,->{"hbase-#{fetch(:hbase_version)}-bin.tar.gz"}
+set :hbase_download_url,->{"#{fetch(:file_server)}/#{fetch(:hbase_file)}"}
+set :hbase_home,->{"#{fetch(:bin_path)}/hbase-#{fetch(:hbase_version)}"}
+
 
 
 
