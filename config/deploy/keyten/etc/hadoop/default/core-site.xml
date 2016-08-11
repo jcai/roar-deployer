@@ -19,6 +19,6 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://s2.roar:9000/</value>
+    <value>hdfs://name.roar:9000/</value>
   </property>
 </configuration>
