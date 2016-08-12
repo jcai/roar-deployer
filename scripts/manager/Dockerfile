@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Jun Tsai <jcai@ganshane.com>
 
-RUN apk add --no-cache zsh openssh-client git ruby vim curl
+RUN apk add --no-cache zsh openssh-client git vim curl ruby ruby-io-console
 #config sshd
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
@@ -12,12 +12,25 @@ RUN chmod 0600 /root/.ssh/id_rsa
 RUN cat /root/.ssh/id_rsa.pub > /root/.ssh/authorized_keys
 
 #setup capistrano
+ENV BUNDLER_VERSION 1.12.5
+
 RUN {\
   gem sources --remove http://rubygems.org/ \
-  && gem sources -a https://ruby.taobao.org/ \
-  && gem install sshkit-sudo  --no-rdoc --no-ri \
-  && gem install capistrano -v 3.5.0  --no-rdoc --no-ri;\
+    && gem sources -a https://ruby.taobao.org/ \
+    && gem install bundler --version "$BUNDLER_VERSION" --no-rdoc --no-ri ;\
 }
+
+
+# install things globally, for great justice
+# and don't create ".bundle" in all our apps
+ENV GEM_HOME /usr/local/bundle
+ENV BUNDLE_PATH="$GEM_HOME" \
+	BUNDLE_BIN="$GEM_HOME/bin" \
+	BUNDLE_SILENCE_ROOT_WARNING=1 \
+	BUNDLE_APP_CONFIG="$GEM_HOME"
+ENV PATH $BUNDLE_BIN:$PATH
+RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
+	&& chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
 
 #setup zsh
 ENV HOME /root
@@ -36,6 +49,13 @@ ENV LANG zh_CN.UTF-8
 ENV LANGUAGE zh_CN
 
 WORKDIR /roar-deploy
+ADD Gemfile /tmp/Gemfile
+ADD Gemfile.lock /tmp/Gemfile.lock
+RUN { \
+  cd /tmp/  \
+  && bundle install ; \
+}
 
+ENV ROAR_USER roar
 ENTRYPOINT ["zsh"]
 

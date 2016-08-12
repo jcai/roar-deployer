@@ -99,6 +99,16 @@ set :hbase_home,->{"#{fetch(:bin_path)}/hbase-#{fetch(:hbase_version)}"}
 #
 # Global options
 # --------------
+ssh_options = {
+    keys: %w(keys/id_rsa),
+    forward_agent: false,
+    auth_methods: %w(publickey password),
+}
+unless ENV['ROAR_USER'].nil? 
+ ssh_options[:user]=ENV['ROAR_USER']
+ puts ssh_options
+end
+set :ssh_options, ssh_options
 #  set :ssh_options, {
 #    keys: %w(/home/rlisowski/.ssh/id_rsa),
 #    forward_agent: false,
