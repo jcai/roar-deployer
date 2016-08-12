@@ -69,36 +69,40 @@ namespace :hbase do
   namespace :master do
     desc "start master server"
     task :start do
+      hadoop_home=fetch(:hadoop_home)
       hbase_home =fetch(:hbase_home)
       java_home=fetch(:java_home)
       on roles(:hbase_master),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start master"
+        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start master"
       end
     end
     desc "stop master server"
     task :stop do
+      hadoop_home=fetch(:hadoop_home)
       hbase_home =fetch(:hbase_home)
       java_home=fetch(:java_home)
       on roles(:hbase_master),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop master"
+        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop master"
       end
     end
   end
   namespace :region do
     desc "start region server"
+    hadoop_home=fetch(:hadoop_home)
     task :start do
       hbase_home =fetch(:hbase_home)
       java_home=fetch(:java_home)
       on roles(:hbase_region),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
+        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end
     end
     desc "stop master server"
     task :stop do
+      hadoop_home=fetch(:hadoop_home)
       hbase_home =fetch(:hbase_home)
       java_home=fetch(:java_home)
       on roles(:hbase_region),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
+        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
       end
     end
   end
