@@ -21,6 +21,7 @@ GEM
       sshkit (~> 1.8)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES

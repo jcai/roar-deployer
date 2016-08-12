@@ -61,6 +61,11 @@ namespace :hbase do
     invoke 'hbase:master:stop'
     invoke 'hbase:zk:stop'
   end
+  task :shell do
+    command = "#{hbase_env} #{hbase_home}/bin/hbase shell"
+    puts command
+    system command
+  end
   namespace :zk do
     desc "start zookeeper server"
     task :start do
@@ -96,7 +101,7 @@ namespace :hbase do
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end
     end
-    desc "stop master server"
+    desc "stop region server"
     task :stop do
       on roles(:hbase_region),in: :sequence do |host|
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
