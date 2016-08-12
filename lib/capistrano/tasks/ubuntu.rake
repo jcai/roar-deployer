@@ -24,7 +24,6 @@ namespace :ubuntu do
 
         #set apt
         upload! "config/deploy/#{_stage}/sources.list","sources.list"
-        upload! "config/deploy/#{_stage}/hosts","hosts"
 
         #init 
         upload! "scripts/init.sh","init.sh"
@@ -34,6 +33,16 @@ namespace :ubuntu do
         execute "rm init.sh"
 
       end
+    end
+    desc "update hosts"
+    task :hosts do
+      _stage = fetch(:stage)
+	    on roles(:ubuntu),in: :sequence do |host|
+		    upload! "config/deploy/#{_stage}/hosts","hosts"
+		    sudo "mv hosts /etc/hosts"
+		    sudo :sh,'-c',"'echo #{host} > /etc/hostname'"
+		    sudo 'hostname -F /etc/hostname'
+	    end
     end
 
     desc "setup ntpdate "

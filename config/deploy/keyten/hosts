@@ -1,10 +1,6 @@
 127.0.0.1	localhost
 
 
-192.168.1.100 	ubuntu.roar 
-192.168.1.100 	hadoop.roar
-192.168.1.100 	git.roar
-192.168.1.100 	name.roar
 
 192.168.1.100 	s1.roar
 192.168.1.101 	s2.roar
@@ -13,3 +9,13 @@
 192.168.1.104 	s5.roar
 192.168.1.105 	s6.roar
 192.168.1.106 	s7.roar
+
+192.168.1.100 	ubuntu.roar 
+192.168.1.100 	file.roar
+192.168.1.100 	git.roar
+192.168.1.100 	name.roar
+192.168.1.100 	hbase.roar
+192.168.1.100 	yarn.roar
+192.168.1.101 	zk1.roar
+192.168.1.102 	zk2.roar
+192.168.1.103 	zk3.roar
