@@ -1,0 +1,52 @@
+FROM debian:jessie
+MAINTAINER Jun Tsai <jcai@ganshane.com>
+
+RUN sed -i 's/http.debian.net/mirrors.163.com/g' /etc/apt/sources.list
+
+RUN {\
+  apt-get update \
+  && apt-get install -qqy locales openssh-client git-core vim ruby rubygems curl zsh byobu; \
+}
+
+#clean apt cache
+RUN apt-get clean
+
+RUN {\
+  echo 'zh_CN.UTF-8 UTF-8' > /etc/locale.gen && \
+  locale-gen --purge && \
+  update-locale LANG=zh_CN.UTF-8 && \
+  echo 'Asia/Shanghai' > /etc/timezone && \
+  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime;\
+}
+#config sshd
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+RUN echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
+RUN mkdir /root/.ssh
+ADD keys/id_rsa /root/.ssh/id_rsa
+ADD keys/id_rsa.pub /root/.ssh/id_rsa.pub
+RUN chmod 0600 /root/.ssh/id_rsa
+RUN cat /root/.ssh/id_rsa.pub > /root/.ssh/authorized_keys
+
+#setup capistrano
+RUN {\
+  gem sources --remove http://rubygems.org/ \
+  && gem sources -a https://ruby.taobao.org/ \
+  && gem install sshkit-sudo  --no-rdoc --no-ri \
+  && gem install capistrano -v 3.5.0  --no-rdoc --no-ri;\
+}
+
+#setup zsh
+ENV HOME /root
+WORKDIR /root
+RUN  curl -L http://install.ohmyz.sh | /bin/bash
+RUN {\
+  sed -i 's/plugins=(git)/plugins=(git vi-mode history-substring-search capistrano)/g' /root/.zshrc \
+  && echo "bindkey -v" >> /root/.zshrc \
+  && echo "export KEYTIMEOUT=1" >> /root/.zshrc \
+  && echo "bindkey -M vicmd \"k\" history-substring-search-up" >> /root/.zshrc \
+  && echo "bindkey -M vicmd \"j\" history-substring-search-down" >> /root/.zshrc ;\
+}
+ENV LANG zh_CN.UTF-8
+ENV LANGUAGE zh_CN
+
+WORKDIR /roar-deploy
