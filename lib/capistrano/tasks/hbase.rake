@@ -1,4 +1,17 @@
 namespace :hbase do
+  def hadoop_home
+    fetch(:hadoop_home)
+  end
+  def hbase_home
+    fetch(:hbase_home)
+  end
+  def java_home
+    fetch(:java_home)
+  end
+  def hbase_env
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home}"
+  end
+
   desc "setup hbase system"
   task :setup do
     app_path = fetch(:deploy_to)
@@ -6,8 +19,8 @@ namespace :hbase do
     bin_dir = "#{app_path}/bin"
     hadoop_version = fetch(:hadoop_version)
     hbase_file=fetch(:hbase_file)
-    hadoop_home=fetch(:hadoop_home)
-    hbase_home=fetch(:hbase_home)
+#    hadoop_home=fetch(:hadoop_home)
+#    hbase_home=fetch(:hbase_home)
     on roles(:hbase) do |host|
       execute "mkdir -p #{bin_dir}"
       execute "mkdir -p #{dist_dir}"
@@ -51,58 +64,42 @@ namespace :hbase do
   namespace :zk do
     desc "start zookeeper server"
     task :start do
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_zk),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start zookeeper"
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh  && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start zookeeper"
       end
     end
     desc "stop zookeeper server"
     task :stop do
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_zk),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop zookeeper"
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh  && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop zookeeper"
       end
     end
   end
   namespace :master do
     desc "start master server"
     task :start do
-      hadoop_home=fetch(:hadoop_home)
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_master),in: :sequence do |host|
-        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start master"
+        execute  "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start master"
       end
     end
     desc "stop master server"
     task :stop do
-      hadoop_home=fetch(:hadoop_home)
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_master),in: :sequence do |host|
-        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop master"
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh &&#{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop master"
       end
     end
   end
   namespace :region do
     desc "start region server"
-    hadoop_home=fetch(:hadoop_home)
     task :start do
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_region),in: :sequence do |host|
-        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end
     end
     desc "stop master server"
     task :stop do
-      hadoop_home=fetch(:hadoop_home)
-      hbase_home =fetch(:hbase_home)
-      java_home=fetch(:java_home)
       on roles(:hbase_region),in: :sequence do |host|
-        execute "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-config.sh  && JAVA_HOME=#{java_home} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
       end
     end
   end
