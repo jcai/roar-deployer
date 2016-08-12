@@ -1,3 +1,4 @@
+require_relative 'shell_helper'
 namespace :hbase do
   def hadoop_home
     fetch(:hadoop_home)
@@ -61,11 +62,6 @@ namespace :hbase do
     invoke 'hbase:master:stop'
     invoke 'hbase:zk:stop'
   end
-  task :shell do
-    command = "#{hbase_env} #{hbase_home}/bin/hbase shell"
-    puts command
-    system command
-  end
   namespace :zk do
     desc "start zookeeper server"
     task :start do
@@ -79,6 +75,16 @@ namespace :hbase do
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh  && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop zookeeper"
       end
     end
+  end
+  desc "execute hbase shell on first master server"
+  task :shell do
+    masters = roles(:hbase_master)
+    if masters.empty?
+      raise 'hbase master is empty'
+    end
+    host =  masters.first
+    shell_cmd = "#{hbase_env} #{hbase_home}/bin/hbase shell"
+    execute_shell(host,shell_cmd)
   end
   namespace :master do
     desc "start master server"
