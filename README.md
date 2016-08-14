@@ -97,7 +97,9 @@
   cap hbase:stop                     # stop all hbase component
   cap hbase:zk:start                 # start zookeeper server
   cap hbase:zk:stop                  # stop zookeeper server
-  cap java:bin[command]              # setup hbase system
+  cap java:bin[command]              # execute command under java/bin directory
+  cap java:gcutil[process]           # view gcutil of java process
+  cap java:vmargs[process]           # view vmargs of java process
   cap roar:link                      # link roar product files
   cap ubuntu:poweroff                # 
   cap ubuntu:setup:hosts             # update hosts
