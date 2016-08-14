@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :application, 'roar'
-set :repo_url, 'roar@git.roar:/opt/apps/roar_deployer.git'
+#set :repo_url, 'roar@git.roar:/opt/apps/roar_deployer.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -45,3 +45,29 @@ module SSHKit
       end
   end
 end
+
+
+# global configuration
+set :bin_path,->{"#{fetch(:deploy_to)}/bin"}
+
+set :hadoop_file,->{"hadoop-#{fetch(:hadoop_version)}.tar.gz"}
+set :hadoop_download_url,->{"#{fetch(:file_server)}/#{fetch(:hadoop_file)}"}
+set :hadoop_home,->{"#{fetch(:bin_path)}/hadoop-#{fetch(:hadoop_version)}"}
+
+set :java_download_url,->{"#{fetch(:file_server)}/#{fetch(:java_file)}"}
+set :java_home,->{"/opt/java/jdk#{fetch(:java_version)}"}
+
+set :hbase_file,->{"hbase-#{fetch(:hbase_version)}-bin.tar.gz"}
+set :hbase_download_url,->{"#{fetch(:file_server)}/#{fetch(:hbase_file)}"}
+set :hbase_home,->{"#{fetch(:bin_path)}/hbase-#{fetch(:hbase_version)}"}
+
+ssh_options = {
+  keys: %w(keys/id_rsa),
+  forward_agent: false,
+  auth_methods: %w(publickey password),
+}
+unless ENV['ROAR_USER'].nil? 
+  ssh_options[:user]=ENV['ROAR_USER']
+  puts ssh_options
+end
+set :ssh_options, ssh_options

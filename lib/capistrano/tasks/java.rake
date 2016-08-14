@@ -4,17 +4,19 @@ namespace :java do
     "#{fetch(:java_home)}/bin"
   end
 
-  desc "setup hbase system"
+  desc "execute command under java/bin directory"
   task :bin,:command do |t,args|
     on roles(:all),in: :sequence do |host|
       execute "#{java_bin}/#{args[:command]}"
     end
   end
+  desc "view vmargs of java process"
   task :vmargs,:process do |t,args|
     on roles(:all),in: :sequence do |host|
       execute! "#{java_bin}/jcmd #{args[:process]} VM.flags",raise_on_non_zero_exit:false
     end
   end
+  desc "view gcutil of java process"
   task :gcutil,:process do |t,args|
     process_name = args[:process]
     on roles(:all),in: :sequence do |host|

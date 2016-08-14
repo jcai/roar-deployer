@@ -56,6 +56,7 @@ namespace :ubuntu do
     end
 
 
+    desc "install jdk"
     task :jdk do 
       _stage = fetch(:stage)
       app_path = fetch(:deploy_to)

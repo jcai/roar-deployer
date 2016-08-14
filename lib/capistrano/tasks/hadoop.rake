@@ -75,6 +75,16 @@ namespace :hadoop do
       end
     end
   end
+  desc "start yarn cluster "
+  task :start_yarn do
+    invoke 'hadoop:yarn:start_manager'
+    invoke 'hadoop:yarn:start_node'
+  end
+  desc "stop yarn cluster "
+  task :stop_yarn do
+    invoke 'hadoop:yarn:stop_node'
+    invoke 'hadoop:yarn:stop_manager'
+  end
   namespace :yarn do
     desc "start yarn resource manager"
     task :start_manager do
