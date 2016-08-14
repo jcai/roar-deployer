@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run --name nirvana-manager -h nirvana-manager -it --rm -v /home/roar/workspace/roar-deployer:/roar-deploy -v /etc/hosts:/etc/hosts -v ~/.zsh_history:/root/.zsh_history manager 
+docker run --name nirvana-manager -h nirvana-manager -it --rm -v $(pwd):/roar-deploy -v /etc/hosts:/etc/hosts -v ~/.zsh_history:/root/.zsh_history jcai/roar-deployer

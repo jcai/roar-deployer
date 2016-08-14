@@ -36,7 +36,7 @@ RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 ENV HOME /root
 WORKDIR /root
 ENV SHELL zsh
-ADD install.sh /root/install.sh
+ADD scripts/install-oh-my-zh-on-docker.sh /root/install.sh
 RUN  zsh   install.sh
 RUN {\
   sed -i 's/plugins=(git)/plugins=(git vi-mode history-substring-search capistrano)/g' /root/.zshrc \
