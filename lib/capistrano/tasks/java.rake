@@ -15,4 +15,11 @@ namespace :java do
       execute! "#{java_bin}/jcmd #{args[:process]} VM.flags",raise_on_non_zero_exit:false
     end
   end
+  task :gcutil,:process do |t,args|
+    process_name = args[:process]
+    on roles(:all),in: :sequence do |host|
+      command = "str=$(#{java_bin}/jps|grep #{process_name}|tr ' ' '\\n'|head -n 1) && [ \"$str\" ] && #{java_bin}/jstat -gcutil $str"
+      execute! command,raise_on_non_zero_exit:false
+    end
+  end
 end
