@@ -31,24 +31,28 @@
     bin/manager
   ```
   
-4. 设置操作系统，(用户支持sudo权限),
+4. 设置操作系统，(用户支持sudo权限)
   ```sh
   cap me ubuntu:setup:user ubuntu:setup:hosts ubuntu:setup:init ubuntu:setup:ntp ubuntu:setup:jdk
   ```
+  
 5. 部署配置
   ```sh
   cap me deploy
   ```
+  
 6. 部署hadoop
   ```sh
   cap me hadoop:setup
   ```
+  
 7. 部署hbase
   ```sh
   cap me hbase:setup
   ```
 8. 操作hadoop集群
-  启动hadoop集群
+ 
+ 启动hadoop集群
   ```sh
   cap me hadoop:start
   ```
@@ -69,7 +73,8 @@
   cap me hadoop:fs[-ls /]
   ```
 9. 操作hbase集群
-  启动hbase集群
+  
+ 启动hbase集群
   ```sh
   cap me hbase:start
   ```
@@ -82,6 +87,7 @@
   cap me hbase:shell
   ```
 10. 常用命令
+  
   ```sh
   cap deploy                         # Deploy a new release
   cap hadoop:data:start              # start data server
