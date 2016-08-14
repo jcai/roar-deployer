@@ -10,7 +10,7 @@ namespace :hbase do
     fetch(:java_home)
   end
   def hbase_env
-    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home}"
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_OFFHEAPSIZE=4G -XX:MaxDirectMemorySize=4G"
   end
 
   desc "setup hbase system"
