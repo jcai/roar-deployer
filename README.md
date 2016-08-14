@@ -52,40 +52,48 @@
   ```
 8. 操作hadoop集群
  
- 启动hadoop集群
-  ```sh
-  cap me hadoop:start
-  ```
-  启动yarn
-  ```sh
-  cap me hadoop:start_yarn
-  ```
-  停止yarn
-  ```sh
-  cap me hadoop:stop_yarn
-  ```
-  停止hadoop
-  ```sh
-  cap me hadoop:stop
-  ```
-  访问hdfs集群
-  ```sh
-  cap me hadoop:fs[-ls /]
-  ```
+ * 启动hadoop集群
+   
+   ```sh
+   cap me hadoop:start
+   ```
+ * 启动yarn
+   
+   ```sh
+   cap me hadoop:start_yarn
+   ```
+ * 停止yarn
+   
+   ```sh
+   cap me hadoop:stop_yarn
+   ```
+ * 停止hadoop
+   
+   ```sh
+   cap me hadoop:stop
+   ```
+ * 访问hdfs集群
+   
+   ```sh
+   cap me hadoop:fs[-ls /]
+   ```
 9. 操作hbase集群
   
- 启动hbase集群
-  ```sh
-  cap me hbase:start
-  ```
-  停止hbase集群
-  ```sh
-  cap me hbase:stop
-  ```
-  打开hbase的shell
-  ```sh
-  cap me hbase:shell
-  ```
+ * 启动hbase集群
+  
+   ```sh
+   cap me hbase:start
+   ```
+ * 停止hbase集群
+  
+   ```sh
+   cap me hbase:stop
+   ```
+ * 打开hbase的shell
+   
+   ```sh
+   cap me hbase:shell
+   ```
 10. 常用命令
   
   ```sh
