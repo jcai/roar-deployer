@@ -61,6 +61,10 @@ set :hbase_file,->{"hbase-#{fetch(:hbase_version)}-bin.tar.gz"}
 set :hbase_download_url,->{"#{fetch(:file_server)}/#{fetch(:hbase_file)}"}
 set :hbase_home,->{"#{fetch(:bin_path)}/hbase-#{fetch(:hbase_version)}"}
 
+set :hive_file,->{"apache-hive-#{fetch(:hive_version)}-bin.tar.gz"}
+set :hive_download_url,->{"#{fetch(:file_server)}/#{fetch(:hive_file)}"}
+set :hive_home,->{"#{fetch(:bin_path)}/apache-hive-#{fetch(:hive_version)}-bin"}
+
 ssh_options = {
   keys: %w(keys/id_rsa),
   forward_agent: false,
