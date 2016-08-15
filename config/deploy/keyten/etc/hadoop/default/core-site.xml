@@ -22,13 +22,13 @@
     <value>hdfs://name.roar:9000/</value>
   </property>
 	<property>
-		<name>hadoop.proxyuser.hadoop.groups</name>
+		<name>hadoop.proxyuser.${user.name}.groups</name>
 		<value>hadoop</value>
 		<description>Allow the superuser oozie to impersonate any members of the group group1 and group2</description>
 	</property>
 
 	<property>
-		<name>hadoop.proxyuser.hadoop.hosts</name>
+    <name>hadoop.proxyuser.${user.name}.hosts</name>
 		<value>*</value>
 		<description>The superuser can connect only from host1 and host2 to impersonate a user</description>
 	</property>
