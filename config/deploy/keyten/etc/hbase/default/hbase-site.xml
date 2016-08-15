@@ -46,4 +46,9 @@
     <name>hbase.regionserver.codecs</name>
     <value>snappy</value>
   </property>
+  <property>
+    <!-- https://issues.apache.org/jira/browse/HBASE-8163 -->
+    <name>hbase.hregion.memstore.chunkpool.maxsize</name>
+    <value>0.5</value>
+  </property>
 </configuration>
