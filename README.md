@@ -22,6 +22,7 @@
 
 2. 获得jcai/roar-deployer的docker
   ```sh
+    /usr/bin/apt install docker.io
     docker pull jcai/roar-deployer
   ```
 
