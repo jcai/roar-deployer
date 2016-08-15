@@ -17,6 +17,7 @@ namespace :hadoop do
       execute "mkdir -p #{dist_dir}"
       execute "wget #{fetch(:hadoop_download_url)} 	-O #{dist_dir}/#{hadoop_file}"
       execute "cd #{dist_dir} && tar xfvz #{hadoop_file} -C #{bin_dir}"
+      sudo '/usr/bin/apt install -yy -qq libsnappy1v5'
     end
   end
   desc "start all hadoop component"

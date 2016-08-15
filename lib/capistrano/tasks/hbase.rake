@@ -48,6 +48,8 @@ namespace :hbase do
       execute "cp #{hadoop_home}/share/hadoop/hdfs/hadoop-hdfs-#{hadoop_version}.jar #{hbase_home}/lib/"
       hadoop_client_file = "hadoop-client-#{fetch(:hadoop_version)}.jar"
       execute "wget #{fetch(:file_server)}/#{hadoop_client_file} -O #{hbase_home}/lib/#{hadoop_client_file}"
+
+      sudo '/usr/bin/apt install -yy -qq libsnappy1v5'
     end
   end
   desc "start all hbase component "
