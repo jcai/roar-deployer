@@ -1,11 +1,6 @@
 #!/bin/bash
 
 set -e
-#set host
-echo '=========> config hostname '
-mv hosts /etc/hosts
-echo $MY_HOSTNAME > /etc/hostname 
-hostname -F /etc/hostname
 
 #config user
 #echo '=========> recreate user roar'
