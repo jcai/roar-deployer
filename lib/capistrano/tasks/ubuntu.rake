@@ -80,4 +80,9 @@ namespace :ubuntu do
       sudo "poweroff"
     end
   end
+  task :flush_cache do
+    on roles(:all) do 
+      sudo :sh,'-c',"\"free && sync && echo 3 > /proc/sys/vm/drop_caches && free\""
+    end
+  end
 end
