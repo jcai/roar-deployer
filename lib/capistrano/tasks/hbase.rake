@@ -9,8 +9,12 @@ namespace :hbase do
   def java_home
     fetch(:java_home)
   end
+  def ntpdate_command
+    "ntpdate -u #{fetch(:ntp_server)}"
+  end
   def hbase_env
-    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_OFFHEAPSIZE=3G HBASE_REGIONSERVER_OPTS=\"-XX:MaxDirectMemorySize=3G\""
+    #TODO 支持可配置
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_HEAPSIZE=2G HBASE_OFFHEAPSIZE=2G HBASE_REGIONSERVER_OPTS=\"-XX:MaxDirectMemorySize=2G\""
   end
 
   desc "setup hbase system"
@@ -92,6 +96,7 @@ namespace :hbase do
     desc "start master server"
     task :start do
       on roles(:hbase_master),in: :sequence do |host|
+        sudo ntpdate_command
         execute  "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start master"
       end
     end
@@ -106,6 +111,7 @@ namespace :hbase do
     desc "start region server"
     task :start do
       on roles(:hbase_region),in: :sequence do |host|
+        sudo ntpdate_command
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end
     end
