@@ -65,6 +65,10 @@ set :hive_file,->{"apache-hive-#{fetch(:hive_version)}-bin.tar.gz"}
 set :hive_download_url,->{"#{fetch(:file_server)}/#{fetch(:hive_file)}"}
 set :hive_home,->{"#{fetch(:bin_path)}/apache-hive-#{fetch(:hive_version)}-bin"}
 
+set :roar_version,'dev-SNAPSHOT'
+set :roar_file,->{"roar-hbase_2.11-#{fetch(:roar_version)}.jar"}
+set :roar_download_url,->{"#{fetch(:file_server)}/#{fetch(:roar_file)}"}
+
 ssh_options = {
   keys: %w(keys/id_rsa),
   forward_agent: false,
