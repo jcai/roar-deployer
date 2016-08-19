@@ -69,6 +69,12 @@ set :roar_version,'dev-SNAPSHOT'
 set :roar_file,->{"roar-hbase_2.11-#{fetch(:roar_version)}.jar"}
 set :roar_download_url,->{"#{fetch(:file_server)}/#{fetch(:roar_file)}"}
 
+#scala-library-2.11.7.jar
+set :scala_version,'2.11.7'
+set :scala_file,->{"scala-library-#{fetch(:scala_version)}.jar"}
+set :scala_download_url,->{"#{fetch(:file_server)}/#{fetch(:scala_file)}"}
+
+
 ssh_options = {
   keys: %w(keys/id_rsa),
   forward_agent: false,

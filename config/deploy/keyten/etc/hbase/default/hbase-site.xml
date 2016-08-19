@@ -28,6 +28,10 @@
     <value>s2.roar,s3.roar,s4.roar</value>
   </property>
   <property>
+    <name>zookeeper.znode.parent</name>
+    <value>/groups/test</value>
+  </property>
+  <property>
     <name>hbase.zookeeper.property.dataDir</name>
     <value>/data/roar/zookeeper</value>
   </property>
