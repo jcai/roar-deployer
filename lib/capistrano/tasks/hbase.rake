@@ -14,7 +14,8 @@ namespace :hbase do
   end
   def hbase_env
     #TODO 支持可配置
-    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_HEAPSIZE=2G HBASE_OFFHEAPSIZE=2G HBASE_REGIONSERVER_OPTS=\"-XX:MaxDirectMemorySize=2G\""
+    #HBASE_OFFHEAPSIZE=2000M 
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_HEAPSIZE=3G HBASE_REGIONSERVER_OPTS=\"-XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 -Dsolr.hdfs.blockcache.write.enabled=true\""
   end
 
   desc "setup hbase system"
@@ -77,7 +78,7 @@ namespace :hbase do
     end
     desc "stop zookeeper server"
     task :stop do
-      on roles(:hbase_zk),in: :sequence do |host|
+      on roles(:hbase_zk) do |host|
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh  && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop zookeeper"
       end
     end
@@ -117,7 +118,7 @@ namespace :hbase do
     end
     desc "stop region server"
     task :stop do
-      on roles(:hbase_region),in: :sequence do |host|
+      on roles(:hbase_region) do |host|
         execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop regionserver"
       end
     end

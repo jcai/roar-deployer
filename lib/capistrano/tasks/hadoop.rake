@@ -66,7 +66,7 @@ namespace :hadoop do
     desc "start data server "
     task :start do
       on roles(:hadoop_datanode),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs start datanode"
+        execute "JAVA_HOME=#{java_home} HADOOP_DATANODE_OPTS=\"-Xmx2G -Xms2G \" #{hadoop_prefix}/sbin/hadoop-daemon.sh  --script hdfs start datanode"
       end
     end
     desc "stop data server"

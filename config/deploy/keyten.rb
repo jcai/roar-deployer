@@ -5,12 +5,12 @@ class SSHKit::Sudo::InteractionHandler
   use_same_password!
 end
 
-server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager hbase_master hive)
+server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager hbase_master hive hbase_region)
 server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
-server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_region)
-server 's6.roar',roles:%w(ubuntu hadoop hbase hbase_region)
+server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager )
+#server 's6.roar',roles:%w(ubuntu hadoop hbase hbase_region)
 server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_region)
 
 
