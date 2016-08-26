@@ -46,6 +46,17 @@ module SSHKit
   end
 end
 
+# set jvm parameter
+set :hadoop_namenode_opts,'-Xmx1G -Xms1G'
+set :hadoop_datanode_opts,'-Xmx1G -Xms1G'
+set :hbase_region_opts,"-Xmx1G -Xms1G -XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15"
+
+#set file version
+set :hadoop_version,'2.5.2'
+set :hbase_version,'0.98.20-hadoop2'
+set :hive_version,'2.1.0'
+set :java_version,'1.7.0_79'
+set :java_file,'server-jre-7u79-linux-x64.tar.gz'
 
 # global configuration
 set :bin_path,->{"#{fetch(:deploy_to)}/bin"}

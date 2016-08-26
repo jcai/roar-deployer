@@ -15,7 +15,11 @@ namespace :hbase do
   def hbase_env
     #TODO 支持可配置
     #HBASE_OFFHEAPSIZE=2000M 
-    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_HEAPSIZE=3G HBASE_REGIONSERVER_OPTS=\"-XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 -Dsolr.hdfs.blockcache.write.enabled=true\""
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_HEAPSIZE=1G "
+  end
+  def hbase_region_env
+    hbase_region_opts = fetch(:hbase_region_opts)
+    "LD_LIBRARY_PATH=#{hadoop_home}/lib/native JAVA_HOME=#{java_home} HBASE_REGIONSERVER_OPTS=\"#{hbase_region_opts}\""
   end
 
   desc "setup hbase system"
@@ -113,7 +117,7 @@ namespace :hbase do
     task :start do
       on roles(:hbase_region),in: :sequence do |host|
         sudo ntpdate_command
-        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
+        execute "#{hbase_region_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_region_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end
     end
     desc "stop region server"

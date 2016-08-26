@@ -9,7 +9,7 @@ server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode ha
 server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
-server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager )
+server 's5.roar',roles:%w(ubuntu hadoop hbase hadoop_nodemanager )
 #server 's6.roar',roles:%w(ubuntu hadoop hbase hbase_region)
 server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_region)
 
@@ -22,14 +22,17 @@ server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager
 set :ntp_server,'s1.roar'
 set :file_server,'http://file.roar'
 
-set :hadoop_version,'2.5.2'
+set :hbase_region_opts,"-Xmx5G -Xms5G -XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 "
 
-set :hbase_version,'0.98.20-hadoop2'
 
-set :hive_version,'2.1.0'
-
-set :java_version,'1.7.0_79'
-set :java_file,'server-jre-7u79-linux-x64.tar.gz'
+#set :hadoop_version,'2.5.2'
+#
+#set :hbase_version,'0.98.20-hadoop2'
+#
+#set :hive_version,'2.1.0'
+#
+#set :java_version,'1.7.0_79'
+#set :java_file,'server-jre-7u79-linux-x64.tar.gz'
 
 
 

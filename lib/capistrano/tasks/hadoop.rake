@@ -51,8 +51,9 @@ namespace :hadoop do
     end
     desc "start name server"
     task :start do
+      hadoop_namenode_opts=fetch(:hadoop_namenode_opts)
       on roles(:hadoop_namenode),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs start namenode"
+        execute "JAVA_HOME=#{java_home} HADOOP_NAMENODE_OPTS=\"#{hadoop_namenode_opts}\" #{hadoop_prefix}/sbin/hadoop-daemon.sh --script hdfs start namenode"
       end
     end
     desc "stop name server"
@@ -64,9 +65,10 @@ namespace :hadoop do
   end
   namespace :data do
     desc "start data server "
+    hadoop_datanode_opts=fetch(:hadoop_datanode_opts)
     task :start do
       on roles(:hadoop_datanode),in: :sequence do |host|
-        execute "JAVA_HOME=#{java_home} HADOOP_DATANODE_OPTS=\"-Xmx1G -Xms1G \" #{hadoop_prefix}/sbin/hadoop-daemon.sh  --script hdfs start datanode"
+        execute "JAVA_HOME=#{java_home} HADOOP_DATANODE_OPTS=\"#{hadoop_datanode_opts} \" #{hadoop_prefix}/sbin/hadoop-daemon.sh  --script hdfs start datanode"
       end
     end
     desc "stop data server"
