@@ -10,10 +10,15 @@
 192.168.1.105 	s6.roar
 192.168.1.106 	s7.roar
 
+# ubuntu.roar 指的的是ubuntu的镜像源，如果在外网，没用
 192.168.1.100 	ubuntu.roar 
+# file.roar 指的是存放hbase hadoop jdk的文件服务器
 192.168.1.100 	file.roar
+# git.roar 指的git服务器
 192.168.1.100 	git.roar
+# name.roar 指的安装hadoop name node的服务器
 192.168.1.100 	name.roar
+# hbase.roar 指的安装hmaster的机器
 192.168.1.100 	hbase.roar
 192.168.1.100 	yarn.roar
 192.168.1.101 	zk1.roar

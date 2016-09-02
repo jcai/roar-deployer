@@ -19,6 +19,12 @@
   * 设置NGINX文件服务器，供下载软件使用,软件目录包含如下:
 
     hadoop-2.5.2.tar.gz hadoop-client-2.5.2.jar hbase-0.98.20-hadoop2-bin.tar.gz server-jre-7u79-linux-x64.tar.gz
+  * 安装docker.
+
+  ```sh
+    sudo apt-get install docker.io
+    sudo usermod -aG docker hadoop  # hadoop 为当前用户
+  ```
 
 2. 获得jcai/roar-deployer的docker
   ```sh
