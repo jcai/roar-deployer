@@ -1,5 +1,7 @@
 def execute_shell(host,shell_cmd)
-  options = host.netssh_options
+  ssh_options = fetch(:ssh_options)
+  options = host.netssh_options.merge(ssh_options)
+  puts options
 
   cmd = ['ssh', '-t']
   cmd << '-A' if options[:forward_agent]
