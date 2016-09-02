@@ -56,6 +56,10 @@ RUN { \
   && bundle install ; \
 }
 
+#setup git user
+RUN git config --global user.email "jcai@ganshane.com"
+RUN git config --global user.name "Jun Tsai"
+
 ENV ROAR_USER roar
 ENTRYPOINT ["zsh"]
 
