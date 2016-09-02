@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <!-- roar hbase library -->
+  <property>
+    <name>hbase.coprocessor.regionserver.classes</name>
+    <value>roar.hbase.services.IndexRegionServerObserver</value>·
+  </property>
+  <property>
+    <name>hbase.coprocessor.region.classes</name>
+    <value>roar.hbase.services.IndexRegionObserver</value>·
+  </property>
+
+  <property>
+    <name>hbase.master</name>
+    <value>hbase.roar:60000</value>
+  </property>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://name.roar:9000/hbase</value>
+  </property>
+  <property>
+    <name>hbase.cluster.distributed</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.quorum</name>
+    <value>s2.roar,s3.roar,s4.roar</value>
+  </property>
+  <property>
+    <name>zookeeper.znode.parent</name>
+    <value>/groups/test</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/data/roar/zookeeper</value>
+  </property>
+  <!-- performance -->
+  <property>
+    <name>hbase.bucketcache.ioengine</name>
+    <value>offheap</value>
+  </property>
+  <property>
+    <name>hfile.block.cache.size</name>
+    <value>0.2</value>
+  </property>
+  <property>
+    <name>hbase.bucketcache.size</name>
+    <value>2048</value>
+  </property>
+  <property>
+    <name>hbase.block.data.cachecompressed</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hbase.master.check.compression</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hbase.regionserver.codecs</name>
+    <value>snappy</value>
+  </property>
+  <property>
+    <!-- https://issues.apache.org/jira/browse/HBASE-8163 -->
+    <name>hbase.hregion.memstore.chunkpool.maxsize</name>
+    <value>0.5</value>
+  </property>
+</configuration>
