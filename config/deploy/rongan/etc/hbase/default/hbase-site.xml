@@ -46,7 +46,7 @@
   </property>
   <property>
     <name>hbase.bucketcache.size</name>
-    <value>2048</value>
+    <value>256</value>
   </property>
   <property>
     <name>hbase.block.data.cachecompressed</name>
