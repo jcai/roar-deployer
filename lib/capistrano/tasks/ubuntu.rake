@@ -74,6 +74,12 @@ namespace :ubuntu do
       end
     end
   end
+  desc "!!! reboot !!!"
+  task :reboot do
+    on roles(:all) ,in: :sequence do 
+      sudo "reboot"
+    end
+  end
   desc "!!! poweroff !!!"
   task :poweroff do
     on roles(:all) do 
