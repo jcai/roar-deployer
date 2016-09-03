@@ -7,8 +7,8 @@ FROM nginx:alpine
 
 #RUN rm /etc/nginx/conf.d/*
 
-ADD file.roar /etc/nginx/conf.d/
-VOLUME /opt/software
+#ADD file.roar /etc/nginx/conf.d/
+#VOLUME /opt/software
 #COPY /tmp/build/dist/app.js /usr/share/nginx/html
 #COPY /tmp/build/dist/app.css /usr/share/nginx/html
 
