@@ -1,11 +1,4 @@
-set :repo_url, 'roar@git.roar:/opt/apps/roar_deployer.git'
-
-#use same password for sudo
-class SSHKit::Sudo::InteractionHandler
-  use_same_password!
-end
-
-server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager hbase_master hive hbase_region)
+server 's1.roar',roles:%w(ubuntu hadoop hbase hadoop_namenode hadoop_datanode hadoop_nodemanager hadoop_resourcemanager hbase_master hive hbase_region file git)
 server 's2.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's3.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
 server 's4.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager hbase_zk hbase_region)
@@ -15,12 +8,9 @@ server 's7.roar',roles:%w(ubuntu hadoop hbase hadoop_datanode hadoop_nodemanager
 
 
 
-# Configuration
-# =============
-# http://capistranorb.com/documentation/getting-started/configuration/
 
 set :ntp_server,'s1.roar'
-set :file_server,'http://file.roar'
+set :file_server_bin,'/opt/software'
 
 set :hbase_region_opts,"-Xmx5G -Xms5G -XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 "
 
