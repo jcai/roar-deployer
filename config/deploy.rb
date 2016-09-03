@@ -55,6 +55,11 @@ set :hbase_region_opts,"-Xmx1G -Xms1G -XX:MaxDirectMemorySize=1G -Dsolr.hdfs.blo
 set :file_server_port,'80'
 set :file_server_bin,'/opt/software'
 set :file_server,->{ "http://#{roles(:file)[0]}:#{fetch(:file_server_port)}/software"}
+#set git server
+set :git_server_path,'/opt/apps/roar_deployer.git'
+set :git_server_url,->{ "roar@#{roles(:git)[0]}:#{fetch(:git_server_path)}"}
+set :repo_url, -> {fetch(:git_server_url)}
+
 
 #set file version
 set :hadoop_version,'2.5.2'
@@ -103,3 +108,7 @@ unless ENV['ROAR_USER'].nil?
   puts ssh_options
 end
 set :ssh_options, ssh_options
+#use same password for sudo
+class SSHKit::Sudo::InteractionHandler
+  use_same_password!
+end
