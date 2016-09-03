@@ -64,6 +64,7 @@ namespace :ubuntu do
       jdk_file=fetch(:java_file)
       java_home=fetch(:java_home)
       bin_dir = "#{java_home}/.."
+      puts fetch(:file_server)
       on roles(:all),in: :sequence do |host|
         sudo "mkdir -p #{bin_dir}"
         sudo "wget #{fetch(:java_download_url)} -O /tmp/#{jdk_file}"
