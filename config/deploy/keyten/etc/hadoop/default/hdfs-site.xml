@@ -25,5 +25,15 @@
     <name>dfs.datanode.data.dir</name>
     <value>file:///data/roar/datanode</value>
   </property>
+  <property>
+    <name>dfs.datanode.handler.count</name>
+    <value>15</value>
+    <source>hdfs-default.xml</source>
+  </property>
+  <property>
+    <name>dfs.namenode.handler.count</name>
+    <value>20</value>
+    <source>hdfs-default.xml</source>
+  </property>
 
 </configuration>
