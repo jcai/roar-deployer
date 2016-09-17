@@ -115,7 +115,7 @@ namespace :hbase do
   namespace :region do
     desc "start region server"
     task :start do
-      on roles(:hbase_region),in: :sequence do |host|
+      on roles(:hbase_region) do |host|
         sudo ntpdate_command
         execute "#{hbase_region_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_region_env} #{hbase_home}/bin/hbase-daemon.sh start regionserver"
       end

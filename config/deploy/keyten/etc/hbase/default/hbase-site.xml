@@ -10,6 +10,12 @@
     <name>hbase.coprocessor.region.classes</name>
     <value>roar.hbase.services.IndexRegionObserver</value>·
   </property>
+  <!-- disable split -->
+
+  <property>
+    <name>hbase.regionserver.region.split.policy</name>
+    <value>org.apache.hadoop.hbase.regionserver.DisabledRegionSplitPolicy</value>
+  </property>
 
   <property>
     <name>hbase.master</name>
