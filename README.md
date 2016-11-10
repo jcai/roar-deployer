@@ -65,7 +65,7 @@
   ```sh
   git add .
   git commit -a -m 'add my configruation files'
-  git remote add me roar@git.roar
+  git remote add me roar@git.roar:/opt/apps/roar_deployer.git
   git push me master
   ```
 
