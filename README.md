@@ -21,18 +21,17 @@
     hadoop-2.5.2.tar.gz hadoop-client-2.5.2.jar hbase-0.98.20-hadoop2-bin.tar.gz server-jre-7u79-linux-x64.tar.gz
   * 安装docker.
 
-  ```sh
-    sudo apt-get install docker.io
-    sudo usermod -aG docker $(whoami)
-  ```
+    ```sh
+      sudo apt-get install docker.io
+      sudo usermod -aG docker $(whoami)
+    ```
 
-    退出当前用户，重新登录系统
+    退出当前用户，重新登录系统.
+    如果无互联网环境，需要导入roar-deployer的docker文件:
 
-    如果无互联网环境，需要导入roar-deployer的docker文件
-
-  ```sh
-    docker load < roar-deployer.tgz
-  ```
+      ```sh
+        docker load < roar-deployer.tgz
+      ```
 
 
 2. 启动文件服务器
@@ -52,7 +51,7 @@
   ```sh
   ROAR_USER=ubuntu cap me ubuntu:setup:user ubuntu:setup:hosts ubuntu:setup:init ubuntu:setup:ntp ubuntu:setup:jdk
   ```
-  
+
 4. 配置GIT服务器，把当前配置内容push到git服务器中
    初始化git服务器
   ```sh
