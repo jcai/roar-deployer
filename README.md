@@ -51,6 +51,10 @@
   ```sh
   ROAR_USER=ubuntu cap me ubuntu:setup:user ubuntu:setup:hosts ubuntu:setup:init ubuntu:setup:ntp ubuntu:setup:jdk
   ```
+   操作完之后,通常需要重启服务器,下面命令中的s2.roar为你要重启的机器
+    ```sh
+    ROAR_USER=ubuntu cap me -z s2.roar ubuntu:reboot
+    ```
 
 4. 配置GIT服务器，把当前配置内容push到git服务器中
    初始化git服务器
