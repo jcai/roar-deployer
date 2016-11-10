@@ -38,9 +38,9 @@
     bin/manager
   ```
   
-4. 设置操作系统，(用户支持sudo权限)
+4. 设置操作系统，(用户支持sudo权限,假设用户名为ubuntu)
   ```sh
-  cap me ubuntu:setup:user ubuntu:setup:hosts ubuntu:setup:init ubuntu:setup:ntp ubuntu:setup:jdk
+  ROAR_USER=ubuntu cap me ubuntu:setup:user ubuntu:setup:hosts ubuntu:setup:init ubuntu:setup:ntp ubuntu:setup:jdk
   ```
   
 5. 部署配置
