@@ -97,6 +97,23 @@ namespace :hbase do
     shell_cmd = "#{hbase_env} #{hbase_home}/bin/hbase shell"
     execute_shell(host,shell_cmd)
   end
+  namespace :master_backup do
+    desc "start master backup server"
+    task :start do
+      #TODO verify the host not habase_master
+      on roles(:hbase_master_backup),in: :sequence do |host|
+        sudo ntpdate_command
+        execute  "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh start master-backup"
+      end
+    end
+    desc "stop master backup server"
+    task :stop do
+      #TODO verify the host not habase_master
+      on roles(:hbase_master_backup),in: :sequence do |host|
+        execute "#{hbase_env} #{hbase_home}/bin/hbase-config.sh && #{hbase_env} #{hbase_home}/bin/hbase-daemon.sh stop master-backup"
+      end
+    end
+  end
   namespace :master do
     desc "start master server"
     task :start do
