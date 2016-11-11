@@ -30,6 +30,16 @@ namespace :hadoop do
     invoke 'hadoop:data:stop'
     invoke 'hadoop:name:stop'
   end
+  desc "exexcute hadoop command"
+  task :cmd,:hadoop_cmd do |t,args|
+    names = roles(:hadoop_namenode)
+    if names.empty?
+      raise 'hadoop name server not definition'
+    end
+    host = roles(:hadoop_namenode).first
+    shell_cmd = "JAVA_HOME=#{java_home} #{hadoop_prefix}/bin/hadoop #{args[:hadoop_cmd]}"
+    execute_shell(host,shell_cmd)
+  end
   desc "exexcute fs shell"
   task :fs,:fs_cmd do |t,args|
     names = roles(:hadoop_namenode)
