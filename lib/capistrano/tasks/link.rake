@@ -27,6 +27,8 @@ namespace :roar do
       else
         execute "ln -s #{public_config_dir}/*  #{hbase_home}/conf/"
       end
+      execute "rm -rf #{hbase_home}/bin/hbase-daemon.sh"
+      execute "ln -s #{release_path}/scripts/hbase-daemon.sh  #{hbase_home}/bin/"
     end
   end
   after 'deploy:publishing','roar:link'
