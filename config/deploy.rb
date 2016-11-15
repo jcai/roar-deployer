@@ -62,8 +62,8 @@ set :repo_url, -> {fetch(:git_server_url)}
 
 
 #set file version
-set :hadoop_version,'2.5.2'
-set :hbase_version,'0.98.20-hadoop2'
+set :hadoop_version,'2.6.5'
+set :hbase_version,'1.2.4'
 set :hive_version,'2.1.0'
 set :java_version,'1.7.0_79'
 set :java_file,'server-jre-7u79-linux-x64.tar.gz'
