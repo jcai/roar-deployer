@@ -13,6 +13,7 @@ set :ntp_server,'s1.roar'
 set :file_server_bin,'/opt/software'
 
 set :hbase_region_opts,"-Xmx5G -Xms5G -XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 "
+set :hbase_master_opts,"-Xmx5G -Xms5G -XX:MaxDirectMemorySize=4G -Dsolr.hdfs.blockcache.slab.count=15 "
 
 
 #set :hadoop_version,'2.5.2'
