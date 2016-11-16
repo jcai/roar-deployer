@@ -62,7 +62,7 @@ set :repo_url, -> {fetch(:git_server_url)}
 
 
 #set file version
-set :hadoop_version,'2.6.5'
+set :hadoop_version,'2.7.3'
 set :hbase_version,'1.2.4'
 set :hive_version,'2.1.0'
 set :java_version,'1.7.0_79'
