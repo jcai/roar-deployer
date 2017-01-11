@@ -54,6 +54,7 @@ set :hbase_region_opts,"-Xmx1G -Xms1G -XX:MaxDirectMemorySize=1G -Dsolr.hdfs.blo
 #set file server
 set :file_server_port,'80'
 set :file_server_bin,'/opt/software'
+set :file_mirror_bin,'/opt/software/ubuntu'
 set :file_server,->{ "http://#{roles(:file)[0]}:#{fetch(:file_server_port)}/software"}
 #set git server
 set :git_server_path,'/opt/apps/roar_deployer.git'

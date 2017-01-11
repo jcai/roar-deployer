@@ -4,8 +4,9 @@ namespace :docker do
     task :start do
       file_server_port=fetch(:file_server_port)
       file_server_bin=fetch(:file_server_bin)
+      file_mirror_bin=fetch(:file_mirror_bin)
       on roles(:file),in: :sequence do |host|
-        execute "docker run -d -p #{file_server_port}:80 -v #{file_server_bin}:/usr/share/nginx/html/software --name file.roar jcai/roar-deployer:file"
+        execute "docker run -d -p #{file_server_port}:80 -v #{file_mirror_bin}:/usr/share/nginx/html/ubuntu -v #{file_server_bin}:/usr/share/nginx/html/software --name file.roar jcai/roar-deployer:file"
       end
     end
     desc "stop file server"
